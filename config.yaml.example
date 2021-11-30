@@ -1,0 +1,7 @@
+jira:
+  filename: <CSV File NAME>
+  server: <YOUR JIRA SERVER URL https://something.somewhere>
+  username: <YOUR JIRA USERNAME>
+  api_token: <YOUR JIRA USERNAME'S API TOKEN>
+  project: <PROJECTS WHERE WE WILL CREATE THE TICKETS>
+
