@@ -14,7 +14,7 @@ class Dependencies:
         self.username = self.config["jira"]["username"]
         self.api_token = self.config["jira"]["api_token"]
         self.project = self.config["jira"]["project"]
-        self.issuetype={'name': 'Bug'}
+        self.issuetype = {'name': 'Bug'}
         self.components = [{"name": "Security"}]
         self.j = JIRA(server=self.server, basic_auth=(self.username, self.api_token))
         self.crits = []
@@ -32,9 +32,7 @@ class Dependencies:
         #        if row["CVSSv3_BaseSeverity"] == "":
         #           row["CVSSv3_BaseSeverity"] = "MEDIUM"
                     self.crits.append(row)
-                    #print ("{}\n|\n⌙-->{}: {} \n".format(row["Identifiers"], row["CVSSv3_BaseSeverity"], row["Vulnerability"]))
         return self.crits
-        #print (json.dumps(self.crits))
 
     def issue_prep(self):
         '''
@@ -50,7 +48,6 @@ class Dependencies:
                 if "CVE" in value:
                     value = "[{}|https://cve.mitre.org/cgi-bin/cvename.cgi?name={}]".format(value, value)
                 issue_description = issue_description + "{}: {}\n".format(key, value)
-            #print("{}\n{}".format(issue_summary, issue_description))
             issue_details = {
                 'project': {'key': self.project},
                 'summary': issue_summary,
@@ -59,8 +56,6 @@ class Dependencies:
                 'components': self.components
             }
             self.jira_issues.append(issue_details)
-            #new_issue = j.create_issue(fields=issue_details)
-            #print(new_issue)
             issue_description = ""
 
 
@@ -85,7 +80,6 @@ class Dependencies:
         warning = input("This is a destructive operation on this JIRA account: {} \nIt will nuke all the issues in this project: {}\nAre you sure?! (Yes/No)> ".format(self.server, self.project))
         if warning == "Yes":
             issues = self.j.search_issues('project={}'.format(self.project))
-            #print(issues)
             for issue in issues:
                 print("{} deleted...".format(issue))
                 issue.delete()
